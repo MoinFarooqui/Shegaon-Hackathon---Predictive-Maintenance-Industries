@@ -1,0 +1,215 @@
+/* Paste this into your global CSS file (no Tailwind needed) */
+:root {
+  --border: rgba(255, 255, 255, 0.12);
+  --text-h: rgba(255, 255, 255, 0.92);
+  --accent-1: #646cff;
+  --accent-2: #ff64b4;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+}
+.hero .base,
+.hero .framework,
+.hero .vite {
+  inset-inline: 0;
+  margin: 0 auto;
+}
+.hero .base {
+  width: 170px;
+  position: relative;
+  z-index: 0;
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.4));
+  transition: filter 0.4s cubic-bezier(0.2,0.9,0.4,1.1), transform 0.3s ease;
+}
+.hero .base:hover {
+  filter: drop-shadow(0 16px 32px rgba(255,255,255,0.12)) drop-shadow(0 0 8px var(--accent-1));
+  transform: scale(1.01);
+}
+.hero .framework,
+.hero .vite {
+  position: absolute;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.2,0.9,0.4,1.1);
+  pointer-events: none;
+}
+.hero .framework {
+  z-index: 1;
+  top: 34px;
+  height: 28px;
+  transform: perspective(1200px) rotateZ(300deg) rotateX(36deg) rotateY(32deg) scale(1.3);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.5));
+}
+.hero .vite {
+  z-index: 0;
+  top: 107px;
+  height: 26px;
+  width: auto;
+  transform: perspective(1200px) rotateZ(300deg) rotateX(32deg) rotateY(32deg) scale(0.85);
+  filter: drop-shadow(0 5px 12px rgba(0,0,0,0.4));
+}
+.hero:hover .framework {
+  transform: perspective(1200px) rotateZ(300deg) rotateX(34deg) rotateY(30deg) scale(1.32);
+}
+.hero:hover .vite {
+  transform: perspective(1200px) rotateZ(300deg) rotateX(30deg) rotateY(30deg) scale(0.87);
+}
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+  animation: fadeUp 0.55s cubic-bezier(0.16,1,0.3,1) both;
+  padding: 0 24px;
+}
+@media (max-width:1024px) {
+  #center { padding: 36px 20px 28px; gap: 22px; }
+}
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+  animation: fadeUp 0.55s 0.1s cubic-bezier(0.16,1,0.3,1) both;
+  background: radial-gradient(ellipse at 0% 0%, rgba(100,108,255,0.02), transparent);
+}
+#next-steps > div {
+  flex: 1 1 0;
+  padding: 36px 32px;
+  transition: background 0.25s ease;
+}
+#next-steps > div:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(100,108,255,0.02));
+}
+@media (max-width:1024px) {
+  #next-steps > div { padding: 28px 20px; }
+  #next-steps { flex-direction: column; text-align: center; }
+}
+#next-steps .icon {
+  margin-bottom: 18px;
+  width: 24px;
+  height: 24px;
+  opacity: 0.75;
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.2,0.9,0.4,1.1);
+}
+#next-steps > div:hover .icon {
+  opacity: 1;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 2px 4px var(--accent-1));
+}
+#docs {
+  border-right: 1px solid var(--border);
+}
+@media (max-width:1024px) {
+  #docs { border-right: none; border-bottom: 1px solid var(--border); }
+}
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 12px;
+  margin: 36px 0 0;
+}
+#next-steps ul .logo {
+  height: 18px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+#next-steps ul a {
+  color: var(--text-h);
+  font-size: 0.95rem;
+  font-weight: 480;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  display: flex;
+  padding: 8px 16px;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.2,0.9,0.4,1.1);
+  border: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(2px);
+}
+#next-steps ul a:hover {
+  background: linear-gradient(135deg, rgba(100,108,255,0.12), rgba(255,100,180,0.08));
+  border-color: rgba(100,108,255,0.4);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2), 0 0 0 1px rgba(100,108,255,0.2);
+  transform: translateY(-2px);
+}
+#next-steps ul a:hover .logo {
+  opacity: 1;
+  transform: scale(1.02);
+}
+#next-steps ul a .button-icon {
+  height: 18px;
+  width: 18px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+#next-steps ul a:hover .button-icon {
+  opacity: 1;
+  transform: translateX(2px);
+}
+@media (max-width:1024px) {
+  #next-steps ul {
+    margin-top: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  #next-steps ul li { flex: 1 1 calc(50% - 10px); }
+  #next-steps ul a {
+    width: 100%;
+    justify-content: center;
+    padding: 8px 12px;
+  }
+}
+#spacer {
+  height: 96px;
+  border-top: 1px solid var(--border);
+  background: radial-gradient(ellipse at 50% 0%, rgba(100,108,255,0.02), transparent);
+}
+@media (max-width:1024px) {
+  #spacer { height: 52px; }
+}
+.ticks {
+  position: relative;
+  width: 100%;
+}
+.ticks::before,
+.ticks::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  border: 5px solid transparent;
+  transition: border-color 0.3s ease, filter 0.2s ease;
+}
+.ticks::before {
+  left: 0;
+  border-left-color: var(--border);
+}
+.ticks::after {
+  right: 0;
+  border-right-color: var(--border);
+}
+.ticks:hover::before {
+  border-left-color: var(--accent-1);
+  filter: drop-shadow(0 0 3px var(--accent-1));
+}
+.ticks:hover::after {
+  border-right-color: var(--accent-2);
+  filter: drop-shadow(0 0 3px var(--accent-2));
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+*:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+::selection {
+  background: rgba(100,108,255,0.25);
+}
