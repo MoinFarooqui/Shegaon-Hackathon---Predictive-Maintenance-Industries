@@ -11,8 +11,9 @@ import {
 
 const API_BASE = "http://localhost:8000";
 
-const BLUE  = "#2563eb";
-const SLATE = "#475569";
+// Dual color palette – Blue (primary) + Indigo (secondary)
+const PRIMARY = "#3b82f6";   // blue-500 (brighter for dark bg)
+const SECONDARY = "#6366f1"; // indigo-500
 
 // ─── Mini bar chart ──────────────────────────────────────────────────────────
 const MiniBarChart = ({ data, isHovered }) => {
@@ -28,11 +29,10 @@ const MiniBarChart = ({ data, isHovered }) => {
           transition={{ delay: i * 0.04, duration: 0.4 }}
           style={{
             height: `${(v / max) * 100}%`,
-            background: isHovered ? BLUE : "#cbd5e1",
-            transition: "background 0.2s",
+            background: isHovered ? PRIMARY : "#4b5563",
           }}
         >
-          <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] py-0.5 px-1.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none z-10 whitespace-nowrap">
+          <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[10px] py-0.5 px-1.5 rounded opacity-0 group-hover:opacity-100 pointer-events-none z-10 whitespace-nowrap">
             {v}
           </div>
         </motion.div>
@@ -41,7 +41,7 @@ const MiniBarChart = ({ data, isHovered }) => {
   );
 };
 
-// ─── Ring gauge ───────────────────────────────────────────────────────────────
+// ─── Ring gauge (dark version) ───────────────────────────────────────────────
 const RingGauge = ({ value, max = 100, label }) => {
   const r = 30, circ = 2 * Math.PI * r;
   const safe = Math.min(Math.max(value, 0), max);
@@ -49,9 +49,9 @@ const RingGauge = ({ value, max = 100, label }) => {
     <div className="flex flex-col items-center gap-1.5 p-2">
       <div className="relative">
         <svg width="72" height="72" viewBox="0 0 72 72">
-          <circle cx="36" cy="36" r={r} fill="none" stroke="#e2e8f0" strokeWidth="4" />
+          <circle cx="36" cy="36" r={r} fill="none" stroke="#374151" strokeWidth="4" />
           <motion.circle
-            cx="36" cy="36" r={r} fill="none" stroke={BLUE} strokeWidth="5"
+            cx="36" cy="36" r={r} fill="none" stroke={PRIMARY} strokeWidth="5"
             strokeLinecap="round" strokeDasharray={circ}
             initial={{ strokeDashoffset: circ }}
             animate={{ strokeDashoffset: circ - (safe / max) * circ }}
@@ -60,21 +60,21 @@ const RingGauge = ({ value, max = 100, label }) => {
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs font-medium text-slate-600">{Math.round(safe)}%</span>
+          <span className="text-xs font-medium text-gray-200">{Math.round(safe)}%</span>
         </div>
       </div>
-      <span className="text-[9px] font-medium text-slate-400 tracking-wide uppercase">{label}</span>
+      <span className="text-[9px] font-medium text-gray-400 tracking-wide uppercase">{label}</span>
     </div>
   );
 };
 
-// ─── Risk badge ───────────────────────────────────────────────────────────────
+// ─── Risk badge (dark mode) ──────────────────────────────────────────────────
 const RiskBadge = ({ risk }) => {
   const cfg = {
-    High:   { cls: "bg-red-50 text-red-600 border-red-200",       dot: "#ef4444" },
-    Medium: { cls: "bg-amber-50 text-amber-600 border-amber-200", dot: "#f59e0b" },
-    Low:    { cls: "bg-slate-50 text-slate-500 border-slate-200", dot: "#94a3b8" },
-  }[risk] ?? { cls: "bg-slate-50 text-slate-400 border-slate-200", dot: "#cbd5e1" };
+    High:   { cls: "bg-red-950/80 text-red-300 border-red-800", dot: "#ef4444" },
+    Medium: { cls: "bg-amber-950/80 text-amber-300 border-amber-800", dot: "#f59e0b" },
+    Low:    { cls: "bg-gray-800 text-gray-300 border-gray-700", dot: "#94a3b8" },
+  }[risk] ?? { cls: "bg-gray-800 text-gray-400 border-gray-700", dot: "#9ca3af" };
   return (
     <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border text-[10px] font-medium ${cfg.cls}`}>
       <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: cfg.dot }} />
@@ -83,25 +83,25 @@ const RiskBadge = ({ risk }) => {
   );
 };
 
-// ─── Skeleton ─────────────────────────────────────────────────────────────────
+// ─── Skeleton (dark) ─────────────────────────────────────────────────────────
 const Skeleton = ({ className }) => (
-  <div className={`animate-pulse bg-slate-100 rounded-xl ${className}`} />
+  <div className={`animate-pulse bg-gray-800 rounded-xl ${className}`} />
 );
 
-// ─── Maintenance steps ────────────────────────────────────────────────────────
+// ─── Maintenance steps (dark) ────────────────────────────────────────────────
 const MaintenanceSteps = ({ plan }) => {
-  if (!plan) return <p className="text-xs text-slate-400 italic">No plan available</p>;
+  if (!plan) return <p className="text-xs text-gray-400 italic">No plan available</p>;
   const lines = plan.split("\n").filter(l => l.trim().match(/^\d+\./));
   if (lines.length === 0)
-    return <p className="text-xs text-slate-500 leading-relaxed">{plan}</p>;
+    return <p className="text-xs text-gray-400 leading-relaxed">{plan}</p>;
   return (
     <ol className="space-y-2">
       {lines.map((line, i) => (
         <li key={i} className="flex items-start gap-2">
-          <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 border border-blue-200 text-blue-600 text-[10px] font-semibold flex items-center justify-center mt-0.5">
+          <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-950/60 border border-indigo-800 text-indigo-300 text-[10px] font-semibold flex items-center justify-center mt-0.5">
             {i + 1}
           </span>
-          <span className="text-xs text-slate-500 leading-relaxed">
+          <span className="text-xs text-gray-300 leading-relaxed">
             {line.replace(/^\d+\.\s*/, "")}
           </span>
         </li>
@@ -110,43 +110,43 @@ const MaintenanceSteps = ({ plan }) => {
   );
 };
 
-// ─── Alert card ───────────────────────────────────────────────────────────────
+// ─── Alert card (dark) ───────────────────────────────────────────────────────
 const AlertCard = ({ machine, response, index }) => {
   const [expanded, setExpanded] = useState(false);
   const level = response.machine_status;
   const leftBorder =
-    level === "High" ? "#ef4444" : level === "Medium" ? "#f59e0b" : "#94a3b8";
+    level === "High" ? "#ef4444" : level === "Medium" ? "#f59e0b" : "#6b7280";
 
   return (
     <motion.div
       initial={{ opacity: 0, x: -6 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.04 }}
-      className="rounded-lg border border-slate-200 bg-white overflow-hidden hover:shadow-sm transition-shadow"
+      className="rounded-lg border border-gray-700 bg-gray-800/80 overflow-hidden hover:shadow-md transition-shadow"
       style={{ borderLeft: `3px solid ${leftBorder}` }}
     >
       <div className="p-3 cursor-pointer" onClick={() => setExpanded(e => !e)}>
         <div className="flex items-center justify-between gap-2 mb-1">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-500 border border-slate-200">
+            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-gray-700 text-gray-300 border border-gray-600">
               ID-{machine.machine_id}
             </span>
-            <span className="text-[9px] text-slate-400">{machine.machine_type}</span>
+            <span className="text-[9px] text-gray-400">{machine.machine_type}</span>
             <RiskBadge risk={level} />
           </div>
           <div className="flex items-center gap-1">
             {response.maintenance_plan && (
-              <span className="text-[9px] font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+              <span className="text-[9px] font-semibold text-indigo-300 bg-indigo-950/50 border border-indigo-800 px-1.5 py-0.5 rounded">
                 PLAN
               </span>
             )}
             {expanded
-              ? <ChevronUp size={12} className="text-slate-300" />
-              : <ChevronDown size={12} className="text-slate-300" />}
+              ? <ChevronUp size={12} className="text-gray-500" />
+              : <ChevronDown size={12} className="text-gray-500" />}
           </div>
         </div>
-        <p className="text-xs font-semibold text-slate-700">{response.issue}</p>
-        <p className="text-[10px] text-slate-400 mt-0.5">{response.recommended_action}</p>
+        <p className="text-xs font-semibold text-gray-200">{response.issue}</p>
+        <p className="text-[10px] text-gray-400 mt-0.5">{response.recommended_action}</p>
       </div>
 
       <AnimatePresence>
@@ -158,10 +158,10 @@ const AlertCard = ({ machine, response, index }) => {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-3 pb-3 border-t border-slate-100">
+            <div className="px-3 pb-3 border-t border-gray-700">
               <div className="flex items-center gap-1.5 mt-2 mb-2">
-                <Wrench size={10} className="text-blue-400" />
-                <span className="text-[9px] font-semibold text-blue-600 uppercase tracking-wider">
+                <Wrench size={10} className="text-indigo-400" />
+                <span className="text-[9px] font-semibold text-indigo-300 uppercase tracking-wider">
                   Maintenance plan · mistral-7b
                 </span>
               </div>
@@ -174,29 +174,29 @@ const AlertCard = ({ machine, response, index }) => {
   );
 };
 
-// ─── Status pill ──────────────────────────────────────────────────────────────
+// ─── Status pill (dark) ──────────────────────────────────────────────────────
 const StatusPill = ({ loading, error, count }) => {
   if (loading)
     return (
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-100 text-blue-600 text-[11px] font-medium">
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-950/60 border border-blue-800 text-blue-300 text-[11px] font-medium">
         <Loader2 size={11} className="animate-spin" />
         Analyzing…
       </div>
     );
   if (error)
     return (
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-500 text-[11px] font-medium">
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-400 text-[11px] font-medium">
         <WifiOff size={11} /> Offline
       </div>
     );
   return (
-    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-medium">
-      <CheckCircle size={11} className="text-blue-500" /> {count} analyzed
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800 border border-gray-700 text-gray-300 text-[11px] font-medium">
+      <CheckCircle size={11} className="text-blue-400" /> {count} analyzed
     </div>
   );
 };
 
-// ─── Dashboard ────────────────────────────────────────────────────────────────
+// ─── Dashboard (full dark theme) ─────────────────────────────────────────────
 const Dashboard = () => {
   const [isChartHovered, setIsChartHovered] = useState(false);
   const [machines, setMachines] = useState([]);
@@ -284,32 +284,32 @@ const Dashboard = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
-      className="flex min-h-screen bg-slate-50"
+      className="flex min-h-screen bg-black"
     >
       <Sidebar />
 
       <div className="flex-1 p-6 space-y-5 overflow-y-auto w-full max-w-[1600px] mx-auto">
 
-        {/* ── Header ── */}
-        <div className="flex items-center justify-between bg-white border border-slate-200 rounded-2xl px-6 py-4">
+        {/* ── Header (dark card) ── */}
+        <div className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-2xl px-6 py-4 shadow-sm">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[9px] font-semibold text-blue-600 tracking-widest px-2 py-0.5 bg-blue-50 rounded border border-blue-100 uppercase">
+              <span className="text-[9px] font-semibold text-blue-400 tracking-widest px-2 py-0.5 bg-blue-950/50 rounded border border-blue-800 uppercase">
                 Core Module
               </span>
-              <span className="text-[9px] font-semibold text-slate-500 tracking-widest px-2 py-0.5 bg-slate-50 rounded border border-slate-200 uppercase">
+              <span className="text-[9px] font-semibold text-indigo-400 tracking-widest px-2 py-0.5 bg-indigo-950/50 rounded border border-indigo-800 uppercase">
                 2 LLMs Active
               </span>
             </div>
-            <h1 className="text-xl font-semibold text-slate-800 tracking-tight">
+            <h1 className="text-xl font-semibold text-gray-100 tracking-tight">
               Predictive Maintenance{" "}
-              <span className="text-blue-600">Hub</span>
+              <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Hub</span>
             </h1>
-            <p className="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
+            <p className="text-[11px] text-gray-500 mt-1 flex items-center gap-1.5">
               <RefreshCcw size={10} />
               {machines.length > 0 ? `${machines.length} machines · Rule + ML + 2 LLMs` : "Loading…"}
               {lastRefresh && (
-                <span className="text-slate-300">· {lastRefresh.toLocaleTimeString()}</span>
+                <span className="text-gray-600">· {lastRefresh.toLocaleTimeString()}</span>
               )}
             </p>
           </div>
@@ -317,10 +317,10 @@ const Dashboard = () => {
           <div className="flex items-center gap-3">
             {loading && loadingPhase === "analyzing" && (
               <div className="flex flex-col items-end gap-1">
-                <span className="text-[10px] text-blue-500 font-medium">{progress}%</span>
-                <div className="w-28 h-1 bg-slate-100 rounded-full overflow-hidden">
+                <span className="text-[10px] text-blue-400 font-medium">{progress}%</span>
+                <div className="w-28 h-1 bg-gray-800 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-blue-500 rounded-full"
+                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.2 }}
                   />
@@ -333,7 +333,7 @@ const Dashboard = () => {
             <motion.button
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
               onClick={fetchAll} disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-40 cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all disabled:opacity-40 cursor-pointer shadow-sm"
             >
               <Radio size={14} className="text-white" />
               <span className="text-xs font-medium text-white">Re-analyze</span>
@@ -341,27 +341,27 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* ── Error banner ── */}
+        {/* ── Error banner (dark) ── */}
         <AnimatePresence>
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-              className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs"
+              className="flex items-center gap-3 p-3 rounded-xl bg-gray-900 border border-gray-800 text-gray-300 text-xs"
             >
-              <WifiOff size={13} className="text-slate-400" />
+              <WifiOff size={13} className="text-gray-500" />
               <span>
                 Cannot reach{" "}
-                <code className="bg-slate-100 px-1 rounded text-slate-700">http://localhost:8000</code>{" "}
+                <code className="bg-gray-800 px-1 rounded text-gray-300">http://localhost:8000</code>{" "}
                 — start FastAPI first.
               </span>
-              <button onClick={fetchAll} className="ml-auto text-[11px] font-medium text-blue-600 hover:underline">
+              <button onClick={fetchAll} className="ml-auto text-[11px] font-medium text-blue-400 hover:underline">
                 Retry
               </button>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* ── Stat cards ── */}
+        {/* ── Stat cards (using Card component – needs its own dark styling; assuming Card supports className or dark mode) ── */}
         <div className="grid grid-cols-4 gap-4">
           <Card title="Total Machines"
             value={loading && machines.length === 0 ? "—" : String(machines.length)}
@@ -383,35 +383,35 @@ const Dashboard = () => {
             subtitle={`${results.length}/${machines.length || "?"} analyzed`} />
         </div>
 
-        {/* ── Chart + KPI ── */}
+        {/* ── Chart + KPI (dark cards) ── */}
         <div className="grid grid-cols-3 gap-4">
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-            className="col-span-2 bg-white border border-slate-200 rounded-2xl p-5"
+            className="col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-5"
             onMouseEnter={() => setIsChartHovered(true)}
             onMouseLeave={() => setIsChartHovered(false)}
           >
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h2 className="text-sm font-medium text-slate-700">Machine health analytics</h2>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <h2 className="text-sm font-medium text-gray-200">Machine health analytics</h2>
+                <p className="text-[11px] text-gray-500 mt-0.5">
                   {results.length} of {machines.length || "?"} machines analyzed
                 </p>
               </div>
               {loading && (
-                <span className="text-[10px] text-blue-500 flex items-center gap-1">
+                <span className="text-[10px] text-blue-400 flex items-center gap-1">
                   <Loader2 size={10} className="animate-spin" /> Live
                 </span>
               )}
             </div>
-            <div className="h-44 bg-slate-50 rounded-xl p-2 border border-slate-100">
+            <div className="h-44 bg-gray-950 rounded-xl p-2 border border-gray-800">
               <MiniBarChart data={chartData} isHovered={isChartHovered} />
             </div>
             <div className="flex items-center gap-5 mt-3 px-1">
-              {[["#94a3b8", "Low"], ["#f59e0b", "Medium"], ["#ef4444", "High"]].map(([c, l]) => (
+              {[["#6b7280", "Low"], ["#f59e0b", "Medium"], ["#ef4444", "High"]].map(([c, l]) => (
                 <div key={l} className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-sm" style={{ background: c }} />
-                  <span className="text-[10px] text-slate-400">{l} risk</span>
+                  <span className="text-[10px] text-gray-500">{l} risk</span>
                 </div>
               ))}
             </div>
@@ -419,11 +419,11 @@ const Dashboard = () => {
 
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className="bg-white border border-slate-200 rounded-2xl p-5"
+            className="bg-gray-900 border border-gray-800 rounded-2xl p-5"
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-medium text-slate-700">KPI metrics</h2>
-              <span className="text-[9px] font-medium text-slate-400 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded uppercase tracking-wider">
+              <h2 className="text-sm font-medium text-gray-200">KPI metrics</h2>
+              <span className="text-[9px] font-medium text-gray-500 bg-gray-800 border border-gray-700 px-2 py-0.5 rounded uppercase tracking-wider">
                 {loading ? `${progress}%` : "Live"}
               </span>
             </div>
@@ -439,21 +439,21 @@ const Dashboard = () => {
           </motion.div>
         </div>
 
-        {/* ── Alerts + AI Insight ── */}
+        {/* ── Alerts + AI Insight (dark) ── */}
         <div className="grid grid-cols-3 gap-4">
 
           {/* Alerts panel */}
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-            className="bg-white border border-slate-200 rounded-2xl p-5 overflow-y-auto max-h-[480px]"
+            className="bg-gray-900 border border-gray-800 rounded-2xl p-5 overflow-y-auto max-h-[480px]"
           >
             <div className="flex items-center justify-between mb-3">
               <div>
-                <h2 className="text-sm font-medium text-slate-700">Recent alerts</h2>
-                <p className="text-[10px] text-slate-400 mt-0.5">Tap to see maintenance plan</p>
+                <h2 className="text-sm font-medium text-gray-200">Recent alerts</h2>
+                <p className="text-[10px] text-gray-500 mt-0.5">Tap to see maintenance plan</p>
               </div>
               {highCount > 0 && (
-                <span className="text-[10px] font-medium bg-red-50 text-red-500 px-2 py-0.5 rounded-full border border-red-100">
+                <span className="text-[10px] font-medium bg-red-950/60 text-red-300 px-2 py-0.5 rounded-full border border-red-800">
                   {highCount} critical
                 </span>
               )}
@@ -470,8 +470,8 @@ const Dashboard = () => {
                     ))
                   }
                   {results.filter(r => r.response?.machine_status !== "Low").length === 0 && (
-                    <div className="text-center py-8 text-slate-400">
-                      <CheckCircle size={24} className="mx-auto mb-2 text-blue-400 opacity-70" />
+                    <div className="text-center py-8 text-gray-500">
+                      <CheckCircle size={24} className="mx-auto mb-2 text-blue-500 opacity-70" />
                       <p className="text-xs">All machines nominal</p>
                     </div>
                   )}
@@ -482,32 +482,32 @@ const Dashboard = () => {
           {/* AI insight panel */}
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-            className="col-span-2 bg-white border border-slate-200 rounded-2xl p-5"
+            className="col-span-2 bg-gray-900 border border-gray-800 rounded-2xl p-5"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-1.5 bg-blue-600 rounded-lg">
+              <div className="p-1.5 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-sm">
                 <Bot size={16} className="text-white" />
               </div>
               <div className="flex-1">
-                <h2 className="text-sm font-medium text-slate-700">AI insights</h2>
-                <p className="text-[10px] text-slate-400">
+                <h2 className="text-sm font-medium text-gray-200">AI insights</h2>
+                <p className="text-[10px] text-gray-500">
                   {loading ? `Running LLMs… ${progress}%` : `Confidence: ${avgConf}%`}
                 </p>
               </div>
               <div className="flex gap-2">
-                <span className="text-[9px] font-medium px-2 py-1 rounded bg-blue-50 border border-blue-100 text-blue-600">
+                <span className="text-[9px] font-medium px-2 py-1 rounded bg-blue-950/50 border border-blue-800 text-blue-300">
                   LLM 1 · gemma-3n
                 </span>
-                <span className="text-[9px] font-medium px-2 py-1 rounded bg-slate-50 border border-slate-200 text-slate-500">
+                <span className="text-[9px] font-medium px-2 py-1 rounded bg-indigo-950/50 border border-indigo-800 text-indigo-300">
                   LLM 2 · mistral-7b
                 </span>
               </div>
             </div>
 
             {topResult && !loading && (
-              <div className="flex items-center gap-2 mb-4 pb-4 border-b border-slate-100">
-                <span className="text-[10px] text-slate-400">Highest risk:</span>
-                <span className="text-[10px] font-medium text-slate-600 bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
+              <div className="flex items-center gap-2 mb-4 pb-4 border-b border-gray-800">
+                <span className="text-[10px] text-gray-500">Highest risk:</span>
+                <span className="text-[10px] font-medium text-gray-300 bg-gray-800 px-2 py-0.5 rounded border border-gray-700">
                   {topResult.machine.machine_type} · ID-{topResult.machine.machine_id}
                 </span>
                 <RiskBadge risk={topResult.response?.machine_status} />
@@ -516,12 +516,12 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-2 gap-4">
               {/* LLM 1 */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 min-h-[120px]">
-                <p className="text-[9px] font-semibold text-blue-600 uppercase tracking-widest mb-2">
+              <div className="p-4 rounded-xl bg-gray-950 border border-gray-800 min-h-[120px]">
+                <p className="text-[9px] font-semibold text-blue-400 uppercase tracking-widest mb-2">
                   LLM 1 · Diagnosis — gemma-3n
                 </p>
                 {results.length === 0
-                  ? <div className="flex items-center gap-2 text-slate-300">
+                  ? <div className="flex items-center gap-2 text-gray-600">
                       <Loader2 size={11} className="animate-spin" />
                       <span className="text-xs">Waiting…</span>
                     </div>
@@ -529,7 +529,7 @@ const Dashboard = () => {
                       <motion.p
                         key={topResult?.machine?.machine_id ?? "d"}
                         initial={{ opacity: 0, y: 3 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}
-                        className="text-xs text-slate-500 leading-relaxed"
+                        className="text-xs text-gray-300 leading-relaxed"
                       >
                         {topResult?.response?.explanation ?? "No explanation available."}
                       </motion.p>
@@ -538,15 +538,15 @@ const Dashboard = () => {
               </div>
 
               {/* LLM 2 */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 min-h-[120px]">
+              <div className="p-4 rounded-xl bg-gray-950 border border-gray-800 min-h-[120px]">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Wrench size={10} className="text-slate-400" />
-                  <p className="text-[9px] font-semibold text-slate-500 uppercase tracking-widest">
+                  <Wrench size={10} className="text-indigo-400" />
+                  <p className="text-[9px] font-semibold text-indigo-400 uppercase tracking-widest">
                     LLM 2 · Maintenance — mistral-7b
                   </p>
                 </div>
                 {results.length === 0
-                  ? <div className="flex items-center gap-2 text-slate-300">
+                  ? <div className="flex items-center gap-2 text-gray-600">
                       <Loader2 size={11} className="animate-spin" />
                       <span className="text-xs">Waiting…</span>
                     </div>
@@ -563,36 +563,36 @@ const Dashboard = () => {
             </div>
 
             {!loading && topResult && (
-              <div className="flex items-center gap-2 mt-4 pt-3 border-t border-slate-100">
-                <TrendingUp size={11} className="text-slate-300" />
-                <span className="text-[10px] text-slate-400">
+              <div className="flex items-center gap-2 mt-4 pt-3 border-t border-gray-800">
+                <TrendingUp size={11} className="text-gray-600" />
+                <span className="text-[10px] text-gray-500">
                   Rule:{" "}
-                  <span className="text-slate-600 font-medium">{topResult.response?.rule_based}</span>
+                  <span className="text-gray-300 font-medium">{topResult.response?.rule_based}</span>
                   {" · "}ML:{" "}
-                  <span className="text-slate-600 font-medium">{topResult.response?.ml_prediction}</span>
+                  <span className="text-gray-300 font-medium">{topResult.response?.ml_prediction}</span>
                   {" · "}Final:{" "}
-                  <span className="text-blue-600 font-medium">{topResult.response?.machine_status}</span>
+                  <span className="text-indigo-400 font-medium">{topResult.response?.machine_status}</span>
                 </span>
               </div>
             )}
           </motion.div>
         </div>
 
-        {/* ── Full fleet table ── */}
+        {/* ── Full fleet table (dark) ── */}
         {results.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-            className="bg-white border border-slate-200 rounded-2xl p-5"
+            className="bg-gray-900 border border-gray-800 rounded-2xl p-5"
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-medium text-slate-700">
+              <h2 className="text-sm font-medium text-gray-200">
                 Full fleet analysis
-                <span className="ml-2 text-slate-400 font-normal text-xs">
+                <span className="ml-2 text-gray-500 font-normal text-xs">
                   {results.length} machines
                 </span>
               </h2>
               {loading && (
-                <span className="text-[10px] text-blue-500 flex items-center gap-1">
+                <span className="text-[10px] text-blue-400 flex items-center gap-1">
                   <Loader2 size={10} className="animate-spin" /> Updating
                 </span>
               )}
@@ -600,9 +600,9 @@ const Dashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-slate-100">
+                  <tr className="border-b border-gray-800">
                     {["ID", "Type", "Temp", "Vibration", "RPM", "Rule", "ML", "Final", "Action"].map(h => (
-                      <th key={h} className="px-3 py-2 text-[9px] font-semibold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+                      <th key={h} className="px-3 py-2 text-[9px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
                         {h}
                       </th>
                     ))}
@@ -613,25 +613,25 @@ const Dashboard = () => {
                     <motion.tr
                       key={machine.machine_id}
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.004 * i }}
-                      className={`border-b last:border-0 border-slate-50 hover:bg-slate-50 transition-colors ${
+                      className={`border-b last:border-0 border-gray-800/50 hover:bg-gray-800/40 transition-colors ${
                         response.machine_status === "High"
-                          ? "bg-red-50/20"
+                          ? "bg-red-950/20"
                           : response.machine_status === "Medium"
-                          ? "bg-amber-50/20"
+                          ? "bg-amber-950/20"
                           : ""
                       }`}
                     >
-                      <td className="px-3 py-2.5 font-mono text-xs text-blue-600 font-medium">
+                      <td className="px-3 py-2.5 font-mono text-xs text-blue-400 font-medium">
                         #{machine.machine_id}
                       </td>
-                      <td className="px-3 py-2.5 text-xs text-slate-600">{machine.machine_type}</td>
-                      <td className="px-3 py-2.5 font-mono text-xs text-slate-500">{machine.temp.toFixed(1)}°C</td>
-                      <td className="px-3 py-2.5 font-mono text-xs text-slate-500">{machine.vibration.toFixed(2)}</td>
-                      <td className="px-3 py-2.5 font-mono text-xs text-slate-500">{machine.rpm.toFixed(0)}</td>
+                      <td className="px-3 py-2.5 text-xs text-gray-300">{machine.machine_type}</td>
+                      <td className="px-3 py-2.5 font-mono text-xs text-gray-400">{machine.temp.toFixed(1)}°C</td>
+                      <td className="px-3 py-2.5 font-mono text-xs text-gray-400">{machine.vibration.toFixed(2)}</td>
+                      <td className="px-3 py-2.5 font-mono text-xs text-gray-400">{machine.rpm.toFixed(0)}</td>
                       <td className="px-3 py-2.5"><RiskBadge risk={response.rule_based} /></td>
                       <td className="px-3 py-2.5"><RiskBadge risk={response.ml_prediction} /></td>
                       <td className="px-3 py-2.5"><RiskBadge risk={response.machine_status} /></td>
-                      <td className="px-3 py-2.5 text-[10px] text-slate-400 max-w-[180px] truncate">
+                      <td className="px-3 py-2.5 text-[10px] text-gray-400 max-w-[180px] truncate">
                         {response.recommended_action}
                       </td>
                     </motion.tr>
