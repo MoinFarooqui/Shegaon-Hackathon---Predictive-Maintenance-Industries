@@ -44,7 +44,7 @@ Industries often face unexpected machine failures, leading to downtime and finan
 ---
 
 ## 🌐 Live Demo
-👉 https://your-project.vercel.app  
+👉 https://shegaon-hackathon-predictive-mainte.vercel.app 
 
 ---
 
