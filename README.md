@@ -43,6 +43,12 @@ Industries often face unexpected machine failures, leading to downtime and finan
 
 ---
 
+## 👥 Contributors
+- **Moin Farooqui** – Backend & Project Integration  
+- **Maaz Ahmed Khan** – Frontend Development
+  
+---
+
 ## 🌐 Live Demo
 👉 https://shegaon-hackathon-predictive-mainte.vercel.app 
 
