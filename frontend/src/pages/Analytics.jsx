@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { BarChart3, Activity, Thermometer, Loader2, WifiOff, RefreshCcw, Zap } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://predictive-maintenance-backend-swom.onrender.com";
 
 // ─── Sparkline ────────────────────────────────────────────────────────────────
 const Sparkline = ({ data, color }) => {

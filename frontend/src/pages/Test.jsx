@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API_URL = "http://localhost:8000";
+const API_URL = "https://predictive-maintenance-backend-swom.onrender.com";
 
 const DEFAULT_FORM = {
     log: "",

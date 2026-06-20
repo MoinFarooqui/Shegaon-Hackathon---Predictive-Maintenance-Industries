@@ -9,7 +9,7 @@ import {
   ChevronDown, ChevronUp
 } from "lucide-react";
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://predictive-maintenance-backend-swom.onrender.com";
 
 // Dual color palette – Blue (primary) + Indigo (secondary)
 const PRIMARY = "#3b82f6";   // blue-500 (brighter for dark bg)
@@ -351,7 +351,7 @@ const Dashboard = () => {
               <WifiOff size={13} className="text-gray-500" />
               <span>
                 Cannot reach{" "}
-                <code className="bg-gray-800 px-1 rounded text-gray-300">http://localhost:8000</code>{" "}
+                <code className="bg-gray-800 px-1 rounded text-gray-300">https://"predictive-maintenance-backend-swom.onrender.com/analyze"</code>{" "}
                 — start FastAPI first.
               </span>
               <button onClick={fetchAll} className="ml-auto text-[11px] font-medium text-blue-400 hover:underline">

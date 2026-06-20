@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const API = "http://127.0.0.1:8000";
+const API = "https://predictive-maintenance-backend-swom.onrender.com";
 
 function Input() {
     const [file, setFile] = useState(null);
