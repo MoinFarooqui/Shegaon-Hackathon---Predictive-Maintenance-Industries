@@ -1,36 +1,32 @@
 # Predictive Maintenance System
 
-## Overview
+## Project Overview
 
-Predictive Maintenance System is an intelligent industrial monitoring solution developed during the SRUJAN Hackathon – NAVONMESH 2026 at Shri Sant Gajanan Maharaj College of Engineering.
+The Predictive Maintenance System is an intelligent industrial monitoring solution developed during the **SRUJAN Hackathon – NAVONMESH 2026** organized by Shri Sant Gajanan Maharaj College of Engineering. The application is designed to predict potential machine failures before they occur by analyzing operational parameters such as temperature, pressure, vibration, and other machine performance indicators.
 
-The system is designed to predict potential machine failures before they occur by analyzing operational parameters such as temperature, pressure, vibration, and machine performance metrics. By combining machine learning techniques with real-time data processing, the application helps industries minimize downtime, improve maintenance planning, and reduce operational costs.
+The project combines machine learning, backend API development, and modern frontend technologies to provide an interactive platform capable of assisting industries in reducing downtime, improving maintenance planning, and minimizing operational costs through predictive analytics.
 
-The project demonstrates the integration of machine learning, backend APIs, and modern web technologies into a unified solution capable of providing actionable maintenance insights.
+---
+
+## Business Objective
+
+The objective of this project is to develop a predictive maintenance solution that enables industries to monitor machine health and identify potential equipment failures before breakdowns occur. By utilizing machine learning techniques and real-time operational data, the system supports preventive maintenance strategies that improve operational efficiency and reduce unexpected production losses.
+
+---
+
+## Live Application
+
+**Website**
+
+https://shegaon-hackathon-predictive-mainte.vercel.app/
 
 ---
 
 ## Problem Statement
 
-Industrial equipment failures often result in production delays, increased maintenance expenses, and significant financial losses. Traditional maintenance strategies either react to failures after they occur or perform maintenance at fixed intervals regardless of machine condition.
+Traditional maintenance strategies often rely on reactive maintenance after equipment failure or scheduled maintenance at fixed intervals regardless of machine condition. These approaches increase maintenance costs, reduce equipment availability, and negatively impact production efficiency.
 
-This project addresses the problem by implementing a predictive maintenance approach that analyzes machine data and identifies failure patterns in advance, enabling organizations to take preventive actions before breakdowns occur.
-
----
-
-## Key Features
-
-The system provides machine failure prediction using a trained machine learning model and processes machine health parameters through a backend API. It offers an interactive dashboard that allows users to monitor machine conditions and view prediction results in a simple and intuitive interface.
-
-The architecture supports seamless communication between the frontend application, backend services, and machine learning components. The solution is designed with scalability in mind and can be extended for real-world industrial environments and IoT-based monitoring systems.
-
----
-
-## System Architecture
-
-The application follows a modular architecture consisting of data processing, machine learning prediction, backend services, and frontend visualization.
-
-Machine operational data is collected and processed before being passed to the machine learning model. The prediction results are then served through FastAPI endpoints and displayed on the web dashboard for users to review and analyze.
+This project addresses these challenges by implementing a predictive maintenance approach that continuously analyzes machine operational data and predicts potential failures before they occur, allowing organizations to take proactive maintenance decisions.
 
 ---
 
@@ -38,75 +34,52 @@ Machine operational data is collected and processed before being passed to the m
 
 ### Frontend
 
-* React
-* Vite
-* HTML5
-* CSS3
-* JavaScript
+- React
+- Vite
+- HTML5
+- CSS3
+- JavaScript
 
 ### Backend
 
-* Python
-* FastAPI
-* REST APIs
+- Python
+- FastAPI
+- REST API
 
 ### Machine Learning
 
-* Scikit-learn
-* Pandas
-* NumPy
-* Joblib
+- Scikit-learn
+- Pandas
+- NumPy
+- Joblib
 
 ---
 
-## Deployment
+## Project Features
 
-The application has been deployed using modern cloud platforms.
+The application provides an interactive dashboard for monitoring machine health and generating predictive maintenance insights using machine learning. Operational parameters are processed through backend APIs and analyzed using a trained prediction model before displaying maintenance recommendations through an intuitive user interface.
 
-### Frontend
-
-Hosted on Vercel
-
-### Backend
-
-Hosted on Render
-
-### API Documentation
-
-https://predictive-maintenance-backend-swom.onrender.com/docs
+The modular architecture allows seamless communication between the frontend, backend, and machine learning components while providing a scalable foundation for industrial monitoring systems.
 
 ---
 
-## Local Setup
+## Machine Learning Workflow
 
-Clone the repository:
+The system follows a structured predictive analytics workflow beginning with machine operational data processing and feature preparation. The processed data is evaluated using a trained machine learning model, and the prediction results are served through FastAPI endpoints before being displayed on the interactive dashboard for decision-making.
 
-```bash
-git clone https://github.com/MoinFarooqui/Shegaon-Hackathon---Predictive-Maintenance-Industries.git
-cd Shegaon-Hackathon---Predictive-Maintenance-Industries
-```
-
-Install backend dependencies:
-
-```bash
-cd backend
-pip install -r requirements.txt
-uvicorn app:app --reload
-```
-
-Install frontend dependencies:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
+The workflow demonstrates practical implementation of predictive analytics within an industrial maintenance environment.
 
 ---
 
-## Future Enhancements
+## Project Outcome
 
-Future improvements include integration with IoT sensors, cloud-based monitoring infrastructure, advanced predictive models, real-time alert mechanisms, and enhanced analytics dashboards for large-scale industrial deployments.
+This project demonstrates practical skills in machine learning, predictive analytics, backend API development, frontend integration, and full-stack application development. The final solution provides an end-to-end predictive maintenance platform capable of analyzing machine conditions and assisting industries in making proactive maintenance decisions.
+
+---
+
+## Future Scope
+
+The project can be further enhanced by integrating IoT sensors for live machine monitoring, implementing cloud-based infrastructure, improving prediction accuracy using advanced machine learning models, introducing real-time notification systems, and developing enterprise-level analytics dashboards for large-scale manufacturing environments.
 
 ---
 
@@ -114,32 +87,28 @@ Future improvements include integration with IoT sensors, cloud-based monitoring
 
 ### Moin Farooqui
 
-Machine Learning, Backend Development, API Integration, System Deployment, and Project Integration.
+Machine Learning Development, Backend Development, API Integration, Model Deployment, System Integration, Documentation, and Project Management.
 
 ### Maaz Ahmad Khan
 
-Frontend Development, User Interface Design, Dashboard Implementation, and Frontend Integration.
+Frontend Development, User Interface Design, Dashboard Development, Responsive Layout, and Frontend Integration.
 
 ---
 
 ## Hackathon Information
 
-This project was developed as part of the SRUJAN Hackathon – NAVONMESH 2026 organized by Shri Sant Gajanan Maharaj College of Engineering under the domain of Artificial Intelligence and Industrial Automation.
+This project was developed for **SRUJAN Hackathon – NAVONMESH 2026** conducted by **Shri Sant Gajanan Maharaj College of Engineering** under the domain of Artificial Intelligence and Industrial Automation.
 
 ---
 
-## License
+## Acknowledgements
 
-This project is intended for educational, research, and demonstration purposes.
+This project was developed using Python, FastAPI, Scikit-learn, React, and modern web technologies. ChatGPT was utilized as a learning and development assistant for refining documentation, discussing implementation approaches, and validating portions of the machine learning and backend workflow during the project development process.
 
 ---
 
-## Project Status
+## Connect With Me
 
-Frontend Deployment Completed
+**GitHub:** https://github.com/MoinFarooqui
 
-Backend Deployment Completed
-
-Machine Learning Integration Completed
-
-End-to-End System Integration Completed
+**LinkedIn:** https://www.linkedin.com/in/moinfrqi
